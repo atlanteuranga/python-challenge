@@ -8,21 +8,36 @@ total_months = 0
 profit = 0
 net = 0
 changes = []
+#inital previous value is 867884
+#since we don't need the change for the first month (the change would be 0)
 previous_value = 867884
 greatest_increase = 0
 greatest_decrease = 0
 total_net = 0
 
-#loop
+#read the csv file
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile,delimiter = ',')
+    #store the header row
     csvheader = next(csvreader)
     for row in csvreader:
+
+        #get the current profit/loss to add to the total
         current_value = int(row[1])
+
+        #calculate the total months by adding 1 for each row we iterate through
         total_months += 1
+
+        #add the current value to the total
         profit += current_value
+
+        #get the change from the previous month for our comparison
         net = current_value - previous_value
+
+        #add to a new list that we will use to find the average
         changes.append(net)
+
+        #compare the nets to each other to find the greatest increase and decrease
         if net > greatest_increase:
             greatest_increase = net
             increase_month = row[0]
@@ -36,9 +51,12 @@ with open(csvpath) as csvfile:
     
    
     #print(changes)
+    # add up all of the nets inside of the list changes
     for x in range(len(changes)):
         total_net = total_net + changes[x]
         #print(total_net)
+        
+        #total_months - 1 because we don't count the first month
         average = total_net/(total_months-1)
 
     print("Financial Analysis")
