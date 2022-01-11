@@ -53,7 +53,7 @@ with open(csvpath, "r") as csvfile:
     
     winner = candidate_dict["candidates"][winner_index]
 
-    print("Election Results:")
+    print("Election Results:"
     print("---------------------")
     print(f"Total Votes: {total_votes}")
     print("---------------------")
@@ -62,6 +62,15 @@ with open(csvpath, "r") as csvfile:
     print("---------------------")
     print("Winner: " + winner)
     print("---------------------")
+
+    file = os.path.join('analysis', 'PyPoll.txt')
+
+    with open(file,'w') as text:
+        text.write("Election Results: \n---------------------\n")
+        text.write(f"Total Votes: {total_votes} \n---------------------\n")
+        for i in range(len(candidate_dict["candidates"])):
+            text.write(f"{candidate_dict['candidates'][i]}: {candidate_dict['percentages'][i]} ({candidate_dict['votes'][i]})\n")
+        text.write("---------------------\nWinner: " + winner+"\n---------------------")
 
     
     
